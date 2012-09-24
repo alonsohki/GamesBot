@@ -22,6 +22,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <cstdio>
+#include <cstdarg>
 #include <string.h>
 #include "database.h"
 

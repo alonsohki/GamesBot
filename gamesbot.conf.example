@@ -1,0 +1,13 @@
+[ircserver]
+address=irc.network.com
+service=6667
+password=
+ssl=false
+sslcert=
+
+[bot]
+nickname=GamesBot
+username=games
+fullname=IRC Games bot
+password=
+channel=#games
