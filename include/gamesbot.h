@@ -67,7 +67,7 @@ public:
   void OnConnect();
   void Send(const Rsl::Net::IRC::IRCText& msg);
   void Quit(const Rsl::Net::IRC::IRCText& msg);
-  void SendToGame(const char* source, const char* text);
+  void SendToGame(const char* source, const char* dest, const char* text);
 
   const char* GetGame() const;
   bool StartGame(const char* name);

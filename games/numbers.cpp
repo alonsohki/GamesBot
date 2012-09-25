@@ -238,10 +238,10 @@ public:
     m_roundStarted = false;
   }
 
-  void ParseText(const char* source, const char* text)
+  void ParseText(const char* source, const char* dest, const char* text)
   {
     char postfix[STACKSIZE];
-    if (m_roundStarted && parseExpression(text, postfix))
+    if (*dest == '#' && m_roundStarted && parseExpression(text, postfix))
     {
       int numNumbers = sizeof(m_roundNumbers) / sizeof(int);
       int copyNumbers[numNumbers];

@@ -90,7 +90,7 @@ static int do_privmsg(IRCClient* irc, const IRCUser* source, const IRCMessage* _
     if (text[0] == '!')
       CommandHandler::Instance()->Handle(source, (const IRCUser *)&msg->GetDest(), text);
     else if (*(bot->GetGame()) != '\0')
-      bot->SendToGame(source->GetName().c_str(), text.c_str());
+      bot->SendToGame(source->GetName().c_str(), msg->GetDest().GetName().c_str(), text.c_str());
   }
 
   return 0;
@@ -362,7 +362,7 @@ void GamesBot::OnConnect()
     memset(identifyMsg, 0, sizeof(identifyMsg));
   }
 
-  m_client.Send(IRCMessageUmode(m_client.GetMe(), "+d"));
+//  m_client.Send(IRCMessageUmode(m_client.GetMe(), "+d"));
   m_client.Send(IRCMessageJoin(m_config.Bot.channel));
 }
 
@@ -383,10 +383,10 @@ void GamesBot::Quit(const IRCText& msg)
     m_client.Send(IRCMessageQuit(msg));
 }
 
-void GamesBot::SendToGame(const char* source, const char* text)
+void GamesBot::SendToGame(const char* source, const char* dest, const char* text)
 {
   if (m_game)
-    m_game->ParseText(source, text);
+    m_game->ParseText(source, dest, text);
 }
 
 void GamesBot::UnloadGames()
@@ -533,7 +533,7 @@ bool GamesBot::StartGame(const char* name)
   m_game = game;
   m_game->Start();
 
-  m_client.Send(IRCMessageUmode(m_client.GetMe(), "-d"));
+  //m_client.Send(IRCMessageUmode(m_client.GetMe(), "-d"));
 
   return true;
 }
@@ -544,6 +544,6 @@ void GamesBot::StopGame()
   {
     m_game->Stop();
     m_game = 0;
-    m_client.Send(IRCMessageUmode(m_client.GetMe(), "+d"));
+    //m_client.Send(IRCMessageUmode(m_client.GetMe(), "+d"));
   }
 }

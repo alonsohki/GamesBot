@@ -38,7 +38,7 @@ public:
   virtual const char* GetName() = 0;
   virtual void Start() = 0;
   virtual void Stop() = 0;
-  virtual void ParseText(const char* source, const char* text) = 0;
+  virtual void ParseText(const char* source, const char* dest, const char* text) = 0;
 };
 
 #endif /* #ifndef __GAME_H */
