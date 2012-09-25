@@ -433,6 +433,11 @@ public:
       else if (*expr == '/')
       {
         if (GET_STACKSIZE() < 2) return;
+        if ( stackP[0] == 0 )
+        {
+          bot->Send(IRCText("%s: Division by zero", source));
+          return;
+        }
         stackP[-1] /= stackP[0];
         stackP--;
         expr++;
