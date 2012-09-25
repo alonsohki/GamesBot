@@ -157,20 +157,23 @@ static inline void Split(const std::string& str, std::vector<std::string>& dest)
 
 void CommandHandler::Handle(const IRCUser* source, const IRCUser* dest, const std::string& text)
 {
-  if (text[0] != '!' || text[1] == '\0')
+  if ( text.length() < 2 || text[0] != '!' )
     return;
 
   std::vector<std::string> params;
   Split(text.c_str() + 1, params);
 
-  for (std::vector<Command>::iterator i = m_commands.begin();
-       i != m_commands.end();
-       i++)
+  if ( params.size() > 0 )
   {
-    if (!strcasecmp((*i).name.c_str(), params[0].c_str()))
+    for (std::vector<Command>::iterator i = m_commands.begin();
+         i != m_commands.end();
+         i++)
     {
-      (*i).callback(GamesBot::Instance(), source, dest, params);
-      break;
+      if (!strcasecmp((*i).name.c_str(), params[0].c_str()))
+      {
+        (*i).callback(GamesBot::Instance(), source, dest, params);
+        break;
+      }
     }
   }
 }
